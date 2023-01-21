@@ -1,0 +1,132 @@
+.signIn_container{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .signIn{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    .left{
+      width: 468.32px;
+      height: 634.15px;
+      background: url('https://static.cdninstagram.com/rsrc.php/v3/y4/r/ItTndlZM2n2.png') center / cover;
+      position: relative;
+      display: none;
+      @media screen and (min-width: 1024px) {
+        display: block;
+      }
+      img{
+        width: 250px;
+        z-index: 538.83px;
+        position: absolute;
+        top: 24.5px;
+        right: 60px;
+      }
+    }
+    .right{
+      width: 350px;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      @media screen and (min-width: 768px) {
+        background: white;
+        border: 1px solid #dbdbdb;
+      }
+      .logo{
+        background-image: url(https://static.cdninstagram.com/rsrc.php/v3/y-/r/yXM3FgMdVNX.png);
+        background-position: 0px -52px;
+        background-size: auto;
+        width: 175px;
+        height: 51px;
+        background-repeat: no-repeat;
+        display: inline-block;
+        margin-bottom: 40px;
+      }
+      form{
+        div{
+          margin-bottom: 15px;
+          position: relative;
+          input{
+            width: 200px;
+            height: 36px;
+            padding: 0 40px 0 10px;
+            font-size: 12px;
+            outline: none;
+            border: 1px solid #DBDBDB;
+            border-radius: 5px;
+            background: #FAFAFA;
+            .active::placeholder{
+              font-size: 8px;
+              position: absolute;
+              top: 5px;
+              left: 10px;
+              padding: 10px 40px 0 10px;
+            }
+          }
+          p{
+            position: absolute;
+            right: 15px;
+            top: -4px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #262626;
+            cursor: pointer;
+
+          }
+          button{
+            width: 255px;
+            height: 34px;
+            background: #4DB5F9;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            border: 0;
+            cursor: pointer;
+          }
+        }
+        .error{
+          font-size: 14px;
+          text-align: center;
+        }
+      }
+      .or{
+        display: flex;
+        align-items: center;
+        span{
+          width: 100px;
+          height: 1px;
+          background: #DBDBDB;
+        }
+        p{
+          margin: 0 14px;
+          color: #8E8E8E;
+          font-weight: bold;
+        }
+      }
+      .forgot{
+        p{
+          a{
+            color: rgb(0, 55, 107);
+            text-decoration: none;
+            font-size: 12px;
+          }
+        }
+      }
+      .account{
+        p{
+          font-size: 14px;
+          a{
+            color: #0095F6;
+            font-weight: bold;
+            margin-left: 5px;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}

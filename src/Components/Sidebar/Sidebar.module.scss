@@ -1,0 +1,143 @@
+.sideBar_container{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  @media screen and (min-width: 768px) {
+    width: 0;
+  }
+  .sideBar_desk{
+    width: 30px;
+    @media screen and (min-width: 1440px) {
+      width: 200px;
+    }
+    display: none;
+    height: 100vh;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 0 25px;
+    background: white;
+    border-right: 1px solid rgb(219, 219, 219);
+    @media screen and (min-width: 768px) {
+      display: flex;
+    }
+    .logo{
+      padding: 25px 0;
+      li{
+        list-style: none;
+        a{
+          img{
+            width: 25px;
+            height: 25px;
+          }
+        }
+      }
+    }
+    .profile{
+      li{
+        list-style: none;
+        margin-top: 50px;
+        margin-bottom: 0;
+        padding: 10px;
+        a{
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          color: black;
+          span{
+            margin-left: 14px;
+            margin-top: 5px;
+          }
+          img{
+            width: 25px;
+            height: 25px;
+            border-radius: 50px;
+          }
+        }
+      }
+    }
+    .list{
+      padding: 0;
+      li{
+        list-style: none;
+        margin-top: 20px;
+        padding: 10px 0;
+        @media screen and (min-width: 1440px) {
+          padding: 10px;
+          width: 200px;
+        }
+        &.active{
+          font-weight: bold;
+        }
+        &:hover{
+          background: #f5f5f5;
+          border-radius: 50px;
+        }
+        a{
+          display: flex;
+          text-decoration: none;
+          color: black;
+          span{
+            margin-left: 14px;
+            margin-top: 5px;
+            display: none;
+            @media screen and (min-width: 1440px) {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    
+    .bars{
+      padding: 10px;
+      li{
+        list-style: none;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        &:hover{
+          background: #f5f5f5;
+          border-radius: 50px;
+        }
+        span{
+          margin-left: 14px;
+          margin-top: 5px;
+          display: none;
+          @media screen and (min-width: 1440px) {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+  .sideBar_phone{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: white;
+    border-top: 1px solid rgb(219, 219, 219);
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
+    li{
+      list-style: none;
+      padding: 10px 15px;
+    }
+    .profile{
+      li{
+        list-style: none;
+        padding: 10px 15px;
+        a{
+          img{
+            width: 25px;
+            height: 25px;
+            object-fit: cover;
+            border-radius: 100px;
+          }
+        }
+      }
+    }
+  }
+}

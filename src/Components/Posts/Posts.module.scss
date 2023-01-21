@@ -1,0 +1,120 @@
+.posts{
+  .post{
+    width: 100%;
+    border-bottom: 1px solid rgb(219, 219, 219);
+    margin-bottom: 15px;
+    @media screen and (min-width: 768px){
+      width: 470px;
+    }
+    .up{
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      @media screen and (min-width: 768px) {
+        padding-left: 0;
+      }
+      img{
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        border-radius: 50px;
+        object-fit: cover;
+        object-position: center;
+      }
+      p{
+        font-weight: bold;
+        font-size: 14px;
+      }
+    }
+    .post_image{
+      position: relative;
+      overflow: hidden;
+      img{
+        width: 100%;
+        height: 100%;
+        border: 1px solid rgb(219, 219, 219);
+        border-radius: 5px;
+        object-fit: cover;
+        @media screen and (min-width: 768px) {
+          width: 470px;
+          height: auto;
+        }
+      }
+      .like{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        li{
+          list-style: none;
+          font-size: 50px;
+          color: white;
+          animation: like 0.5s ;
+        }
+      }
+    }
+    .post_buttons{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      @media screen and (min-width: 768px) {
+        padding: 10px 0;
+      }
+      .left{
+        display: flex;
+        align-items: center;
+        li{
+          list-style: none;
+          font-size: 25px;
+          margin-right: 15px;
+          cursor: pointer;
+        }
+      }
+      .right{
+        li{
+          list-style: none;
+          font-size: 25px;
+          cursor: pointer;
+        }
+      }
+    }
+    .likes{
+      padding: 0 15px;
+      @media screen and (min-width: 768px) {
+        padding: 0;
+      }
+      p{
+        margin: 0;
+      }
+    }
+    .post_title{
+      padding: 0 15px;
+      @media screen and (min-width: 768px) {
+        padding: 0;
+      }
+      p{
+        margin: 10px 0;
+        span{
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+@keyframes like {
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.5);
+  }
+  100%{
+    transform: scale(1);
+  }
+}

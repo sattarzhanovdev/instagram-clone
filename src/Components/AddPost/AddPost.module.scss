@@ -1,0 +1,61 @@
+.addPost_container{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($color: #000000, $alpha: 0.5);
+  z-index: 100;
+  .close{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    li{
+      list-style: none;
+      color: white;
+      font-size: 25px;
+    }
+  }
+  .add_post{
+    width: 450px;
+    height: 400px;
+    background: white;
+    border-radius: 10px;
+    .up{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgb(219, 219, 219);
+      h4{
+        margin: 10px 0;
+      }
+    }
+    .down{
+      height: 90%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      input{
+        display: none;
+      }
+      button{
+        margin: 15px 0;
+        width: 170px;
+        height: 30px;
+        background: rgb(0, 149, 246);
+        color: white;
+        font-weight: bold;
+        border: 0;
+        border-radius: 10px;
+        cursor: pointer;
+        label{
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.navbar_container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  .navbar_phone{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border-bottom: 1px solid rgb(219, 219, 219);
+    padding: 5px 15px;
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
+    .logo{
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/320px-Instagram_logo.svg.png') center / cover;
+      width: 110px;
+      height: 40px;
+    }
+    .list{
+      display: flex;
+      align-items: center;
+      margin: 0;
+      li{
+        list-style: none;
+      }
+    }
+  }
+}
