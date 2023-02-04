@@ -38,9 +38,9 @@ const Posts = () => {
         setLikes(res.data)
       })
 
-    setTimeout(() => {
+    setInterval(() => {
       setRefresh('ОБНОВЛЯЙСЯ')
-    }, 1000)
+    }, 6000)
 
   }, [refresh])
 
@@ -56,6 +56,7 @@ const Posts = () => {
             allUser={users}
             saved={saves}
             setRefresh={setRefresh}
+            refresh={refresh}
           />
         ))
         :

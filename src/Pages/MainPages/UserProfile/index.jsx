@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { API } from '../../../API'
-import UsersFollowers from '../../../Components/UsersFollowers'
 import cls from './UserProfile.module.scss'
 
 const UserProfile = () => {
@@ -132,14 +131,11 @@ const UserProfile = () => {
                   }
                 </div>
               )) :
-              console.log(user)
+              null
           }
         </div>
       </div>
 
-      <UsersFollowers 
-        item={user}
-      />
     </div>
   )
 }

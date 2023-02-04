@@ -14,8 +14,18 @@ const SideBar = () => {
   const [ activePost, setActivePost ] = React.useState(0)
   
   const user = JSON.parse(localStorage.getItem('user'))
+  const accessToken = localStorage.getItem('accessToken')
   
   const Navigate = useNavigate()
+
+  const deleteUser = () => {
+    let ans = alert("You're actually deleting your account?")
+    if(ans){
+      API.deleteUser(accessToken, user?.id)
+      localStorage.clear()
+      window.location.reload()
+    }
+  }
   return (
     <div className={cls.sideBar_container}>
       <div className={cls.sideBar_desk}>
@@ -142,7 +152,9 @@ const SideBar = () => {
           >
             Edit profile
           </button>
-          <button>
+          <button
+            onClick={() => deleteUser()}
+          >
             Delete account
           </button>
         </div>

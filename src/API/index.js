@@ -5,6 +5,11 @@ export const API = {
   register: (data) => axios.post('/users/', data),
   getUser: (username) => axios.get(`/users/?search=${username}`),
   getUsers: () => axios.get(`/users/`),
+  deleteUser: (accessToken, id) => axios.delete(`/users/${id}/`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }),
   editUser: (accessToken, id, data) => axios.put(`/users/${id}/`, data, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
