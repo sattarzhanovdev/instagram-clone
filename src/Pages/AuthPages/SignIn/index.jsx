@@ -29,12 +29,17 @@ const SignIn = () => {
           const data = res.data
           localStorage.setItem('accessToken', data.access)
           localStorage.setItem('refreshToken', data.refresh)
-          setRefresh('REFRESH!')
+          if(data.access){
+            setError('Успешно!')
+          }
+          setTimeout(() => {
+            setRefresh('REFRESH!')
+          }, 1000);
         })
+        .catch(e => setError(e.response.data.detail))
 
       API.getUser(data.username)
         .then(res => localStorage.setItem('user', JSON.stringify(res.data[0])))
-      setError('Success')
     }
     reset()
   }
@@ -78,7 +83,11 @@ const SignIn = () => {
                 Log in
               </button>
             </div>
-            <p className={cls.error}>{error && error}</p>
+            <p 
+              className={error === 'Успешно!' ? cls.success : cls.error}
+            >
+              {error && error}
+            </p>
           </form>
           <div className={cls.or}>
             <span></span>

@@ -31,7 +31,17 @@ export const API = {
       'Authorization': `Bearer ${accessToken}`
     }
   }),
+  deleteStories: (accessToken, id) => axios.delete(`/images/${id}/`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }),
   follow: (accessToken, data) => axios.post(`/follow/`, data, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }),
+  unfollow: (accessToken, id) => axios.delete(`/follow/${id}/`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
@@ -69,9 +79,27 @@ export const API = {
       'Authorization': `Bearer ${accessToken}`
     }
   }),
+  deletePost: (accessToken, id) => axios.delete(`/posts/${id}/`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }),
   postImages: (accessToken, data) => axios.post('/images/', data, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
   }),
+  postComments: (accessToken, data) => axios.post('/comments/', data, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }),
+  deleteComment: (accessToken, id) => axios.delete(`/comments/${id}/`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }),
+  getUsersPosts: (id) => axios.get(`/users/${id}/posts/`),
+  getUsersSubscribers: (id) => axios.get(`/users/${id}/subscribers/`),
+  getUsersSubscriptions : (id) => axios.get(`/users/${id}/subscriptions/`),
 }

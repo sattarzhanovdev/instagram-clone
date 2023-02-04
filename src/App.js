@@ -17,10 +17,16 @@ function App() {
     if(!access){
       Navigate('/signIn')
     }
+
   }, [access])
+  
   return (
     <div>
       <Routes>
+        <Route
+          path='*'
+          element={<MainPages.Pages.Main />}
+        />
         <Route
           path='/'
           element={<MainPages.Pages.Main />}
@@ -38,8 +44,16 @@ function App() {
           element={<MainPages.Pages.Profile />}
         />
         <Route
-          path='/profile:username'
-          element={<MainPages.Pages.Profile />}
+          path='/p/:id'
+          element={<MainPages.Pages.WatchPost />}
+        />
+        <Route
+          path='/profile/:username'
+          element={<MainPages.Pages.UserProfile />}
+        />
+        <Route
+          path='/editProfile/'
+          element={<MainPages.Pages.EditProfile />}
         />
       </Routes>
 

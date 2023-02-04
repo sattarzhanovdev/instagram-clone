@@ -1,0 +1,127 @@
+.profile_container{
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  @media screen and (min-width: 768px) {
+    width: 80%;
+    position: absolute;
+    right: 0;
+    
+  }
+  .profile{
+    width: 90%;
+    .profile_info{
+      .up_profile{
+        display: flex;
+        align-items: center;
+        .left_profile{
+          margin-right: 40px;
+          input{
+            display: none;
+          }
+          label{
+            img{
+              width: 70px;
+              height: 70px;
+              border-radius: 50px;
+              object-fit: cover;
+              object-position: center;
+            }
+          }
+        }
+        .right_profile{
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          flex-direction: column;
+          .user{
+            input{
+              width: 160px;
+              height: 20px;
+              margin: 0;
+              padding: 10px;
+              font-size: 15px;
+              border: 1px solid rgb(219, 219, 219);
+              border-radius: 10px;
+              outline: none; 
+            }
+          }
+          .followers{
+            display: flex;
+            align-items: center;
+            p{
+              margin-right: 10px;
+              span{
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+      .down_profile{
+        border-bottom: 1px solid rgb(219, 219, 219);
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        flex-direction: column;
+        .bio{
+          textarea{
+            max-width: 270px;
+            width: 250px;
+            @media screen and (min-width: 768px) {
+              max-width: 450px;
+            }
+            max-height: 100px;
+            height: 70px;
+            padding: 10px;
+            border: 1px solid rgb(219, 219, 219);
+            border-radius: 10px;
+            outline: none;
+          }
+        }
+        button{
+          width: 150px;
+          height: 35px;
+          background: #0095F6;
+          color: white;
+          font-weight: bold;
+          border-radius: 10px;
+          border: 0;
+          margin-bottom: 5px;
+        }
+      }
+    }
+    .posts{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      .post{
+        img,
+        video{
+          width: 90px;
+          height: 90px;
+          object-fit: cover;
+          object-position: center;
+
+          @media screen and (min-width: 375px) {
+            width: 108px;
+            height: 108px;
+          }
+
+          @media screen and (min-width: 768px) {
+            width: 180px;
+            height: 180px;
+          }
+
+          @media screen and (min-width: 1440px) {
+            width: 250px;
+            height: 250px;
+          }
+        }
+        
+      }
+    }
+  }
+}

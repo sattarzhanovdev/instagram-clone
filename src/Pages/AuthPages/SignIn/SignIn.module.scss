@@ -47,6 +47,7 @@
         margin-bottom: 40px;
       }
       form{
+        width: 250px;
         div{
           margin-bottom: 15px;
           position: relative;
@@ -89,8 +90,16 @@
           }
         }
         .error{
-          font-size: 14px;
+          font-size: 12px;
           text-align: center;
+          color: red;
+          font-weight: bold;
+        }
+        .success{
+          font-size: 12px;
+          text-align: center;
+          color: green;
+          font-weight: bold;
         }
       }
       .or{

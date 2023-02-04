@@ -13,12 +13,13 @@ const WatchStories = ({item, setStories, setActive}) => {
       .then(res => setUsers(res.data))
   }, [])
 
+
   const user_info = []
 
   item?.filter(item => {
     users?.filter(val => {
       return val.id === item.user ? user_info.push(val) : null
-    }) 
+    })
   })
 
   console.log(user_info);
@@ -68,9 +69,21 @@ const WatchStories = ({item, setStories, setActive}) => {
           />
           <p>{user_info[0]?.username}</p>
         </div>
-        <img 
-          src={item[storyId]?.file}
-        />
+        {
+          item[storyId]?.file.slice(item[storyId]?.file.length - 4) === '.png' && 'jpg' ? 
+          <img 
+            src={item[storyId]?.file}
+            alt={'image'}
+          /> :
+          item[storyId]?.file.slice(item[storyId]?.file.length - 5) === '.jpeg' ?
+          <img 
+            src={item[storyId]?.file}
+            alt={'image'}
+          /> :
+          <video autoPlay controls={false} >
+            <source src={item[storyId]?.file}/>
+          </video>
+        }
       </div>
     </div>
   )

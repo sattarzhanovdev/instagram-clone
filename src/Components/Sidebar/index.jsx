@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { AiOutlineClose } from 'react-icons/ai'
+import { Link, useNavigate } from 'react-router-dom'
 import { API } from '../../API'
 import { sidebarDesktop_list, sidebarPhone_list } from '../../Utils'
 import AddPost from '../AddPost'
@@ -9,17 +10,12 @@ import cls from './Sidebar.module.scss'
 const SideBar = () => {
   const [ searchBarActive, setSearchBarActive ] = React.useState('')
   const [ active, setActive ] = React.useState(1)
+  const [ more_active, setMore_active ] = React.useState(false)
   const [ activePost, setActivePost ] = React.useState(0)
   
   const user = JSON.parse(localStorage.getItem('user'))
-
-  React.useEffect(() =>{ 
-    API.getUser(user?.username)
-      .then(res => {
-        localStorage.setItem('user', JSON.stringify(res.data))
-      })
-  }, [])
   
+  const Navigate = useNavigate()
   return (
     <div className={cls.sideBar_container}>
       <div className={cls.sideBar_desk}>
@@ -64,19 +60,23 @@ const SideBar = () => {
             >
               <Link to={'/profile'}>
                 <img 
-                  src={user?.avatar !== null || undefined ? user.avatar : "https://i0.wp.com/alternative.me/images/avatars/default.png"}
+                  src={user?.avatar !== null ? user.avatar : "https://i0.wp.com/alternative.me/images/avatars/default.png"}
                   alt="" 
                 />
-                <span>Profile</span>
+                {searchBarActive === 'Search' ? null : <span>Profile</span> }
               </Link>
             </li>
           </div>
         </ul>
         <ul className={cls.bars}>
-          <li>
-            <svg aria-label="Settings" className="_ab6-" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="3" x2="21" y1="4" y2="4"></line><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="3" x2="21" y1="12" y2="12"></line><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="3" x2="21" y1="20" y2="20"></line></svg>
-
-            <span>More</span>
+          <li
+            onClick={() => setMore_active(!more_active)}
+          >
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png" 
+              alt="bars" 
+            />
+            {searchBarActive === 'Search' ? null : <span>More</span> }
           </li>
         </ul>
       </div>
@@ -86,8 +86,10 @@ const SideBar = () => {
             <li 
               key={item.id}
               className={item.id === active ? cls.active : null}
-              onClick={() => setActive(item.id)}
-            
+              onClick={() => {
+                setActive(item.id)
+                setSearchBarActive(item.title)
+              }}
             >
               <Link to={item.path}>
                 <img 
@@ -102,7 +104,7 @@ const SideBar = () => {
           <li>
             <Link to={'/profile'}>
               <img 
-                src={user?.avatar !== null || undefined ? user.avatar : "https://i0.wp.com/alternative.me/images/avatars/default.png"}
+                src={user?.avatar !== null ? user.avatar : "https://i0.wp.com/alternative.me/images/avatars/default.png"}
                 alt="" 
               />
             </Link>
@@ -112,10 +114,40 @@ const SideBar = () => {
 
       <SearchBar 
         searchBarActive={searchBarActive}
+        setSearchBarActive={setSearchBarActive}
       />
 
       {activePost === 6 ? <AddPost active={activePost} setActive={setActivePost} /> : null}
 
+      {
+        more_active ?
+        <div className={cls.side_more}>
+          <div className={cls.close}>
+            <li
+              onClick={() => setMore_active(false)}
+            >
+              <AiOutlineClose />
+            </li>
+          </div>
+          <button
+            onClick={() => {
+              localStorage.clear()
+              window.location.reload()
+            }}
+          >
+            Log out
+          </button>
+          <button
+            onClick={() => Navigate('/editProfile/')}
+          >
+            Edit profile
+          </button>
+          <button>
+            Delete account
+          </button>
+        </div>
+        : null
+      }
     </div>
   )
 }

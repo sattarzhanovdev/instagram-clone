@@ -1,0 +1,184 @@
+.profile_container{
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  @media screen and (min-width: 768px) {
+    width: 80%;
+    position: absolute;
+    right: 0;
+    
+  }
+  .logOut{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    button{
+      width: 100px;
+      height: 30px;
+      border-radius: 50px;
+      border: 0;
+      background: #0095F6;
+      color: white;
+    }
+  }
+  .profile{
+    width: 90%;
+    .profile_info{
+      .up_profile{
+        display: flex;
+        align-items: center;
+        position: relative;
+        .left_profile{
+          margin-right: 40px;
+          input{
+            display: none;
+          }
+          label{
+            img{
+              width: 70px;
+              height: 70px;
+              border-radius: 50px;
+              object-fit: cover;
+              object-position: center;
+            }
+          }
+        }
+        .right_profile{
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          flex-direction: column;
+          .user{
+            h3{
+              margin: 0;
+              font-size: 17px;
+            }
+          }
+          .followers{
+            display: flex;
+            align-items: center;
+            p{
+              margin-right: 10px;
+              span{
+                font-weight: bold;
+              }
+            }
+          }
+        }
+        .more{
+          position: absolute;
+          right: 0;
+          top: 0;
+          li{
+            list-style: none;
+            font-size: 20px;
+            cursor: pointer;
+          }
+        }
+        .side_more{
+          position: absolute;
+          right: 0;
+          top: 25px;
+          width: 250px;
+          height: 270px;
+          background: white;
+          border: 1px solid rgb(219, 219, 219);
+          border-radius: 15px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          .close{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            li{
+              list-style: none;
+              font-size: 20px;
+              cursor: pointer;
+            }
+          }
+          button{
+            width: 200px;
+            height: 35px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid rgb(219, 219, 219);
+            background: rgb(0, 149, 246);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            &:nth-child(2){
+              background: orange;
+            }
+            &:nth-child(4){
+              background: red;
+            }
+          }
+        }
+      }
+      .down_profile{
+        border-bottom: 1px solid rgb(219, 219, 219);
+      }
+    }
+    .users_posts{
+      .filteration{
+        display: flex;
+        width: 100%;
+        p{
+          width: 50%;
+          text-align: center;
+          border-right: 1px solid rgb(219, 219, 219);
+          position: relative;
+          display: flex;
+          justify-content: center;
+          &:nth-child(2){
+            border: 0;
+          }
+          &.active{
+            &::before{
+              content: '';
+              width: 90%;
+              height: 2px;
+              background: rgb(219, 219, 219);
+              position: absolute;
+              bottom: -10px;
+              left: 5%;
+            }
+          }
+        }
+      }
+      .posts{
+        display: flex;
+        .post{
+          margin-right: 5px;
+          img,
+          video{
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            object-position: center;
+  
+            @media screen and (min-width: 375px) {
+              width: 108px;
+              height: 108px;
+            }
+  
+            @media screen and (min-width: 768px) {
+              width: 180px;
+              height: 180px;
+            }
+  
+            @media screen and (min-width: 1440px) {
+              width: 250px;
+              height: 250px;
+            }
+          }
+          
+        }
+      }
+    }
+  }
+}
