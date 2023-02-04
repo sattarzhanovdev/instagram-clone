@@ -13,6 +13,11 @@ const PostCard = ({item, posts, liked, allUsers, saved, setRefresh}) => {
   const accessToken = localStorage.getItem('accessToken')
   const currentUser = JSON.parse(localStorage.getItem('user'))
 
+  const savedPosts = []
+
+  const isLiked = liked?.filter(likes => likes.id === item.id ? true : false)
+  const isSaved = saved?.filter(saves => saves.user === currentUser?.id ? savedPosts.push(saves) : false)
+
   const like = (id) => {
     API.like(accessToken, {post: id})
     setRefresh('REFRESH YUHUUc!')
@@ -44,7 +49,109 @@ const PostCard = ({item, posts, liked, allUsers, saved, setRefresh}) => {
   }
 
 
+  
   return (
+    savedPosts?.length !== 0 ?
+    savedPosts?.map(saves => (
+      liked?.map(likes => (
+        <div 
+          className={cls.post}
+        >
+          <li
+            className={cls.up}
+            to={`/profile/${allUsers?.map(users => item?.user === users.id ? users.username : '').join(' ')}`}
+          >
+            <img 
+              src={
+                allUsers?.map(users => item?.user === users.id ? users.avatar : '')
+              }
+              alt="photo"
+            />
+            <p>
+              {allUsers?.map(users => item?.user === users.id ? users.username : '')}
+            </p>
+          </li>
+          <div className={cls.post_image}>
+            {
+              item.post_images.length !== 0 ?
+              item.post_images.map((image, index) => (
+                <img 
+                  src={
+                    image.image ?
+                    image.image :
+                    'https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-11.jpg'
+                  }
+                  alt=''
+                /> 
+              )) : 
+              <img 
+                src={'https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-11.jpg'}
+                alt=""
+              />
+            }
+          </div>
+          <div className={cls.post_buttons}>
+            <div className={cls.left}>
+              {
+                likes.post === item.id ?
+                <li
+                  onClick={() => dislike('likes.id')}
+                >
+                  <AiFillHeart />
+                </li> :
+                <li 
+                  onClick={() => like(item.id)}
+                >
+                  <AiOutlineHeart /> 
+                </li>
+              }
+              <li>
+                <Link to={`/p/${item.id}`}>
+                  <FiMessageCircle />
+                </Link>
+              </li>
+              <li>
+                <FiSend />
+              </li>
+            </div>
+            <div className={cls.right}>
+              {
+                saves.post === item.id ?
+                <li
+                  onClick={() => {
+                    unsave(saves.id)
+                  }}
+                >
+                  <FaBookmark />
+                </li>
+                :
+                <li
+                  onClick={() => {
+                    save(item.id)
+                  }}
+                >
+                  <FaRegBookmark />
+                </li>
+                
+              }
+            </div>
+          </div>
+          <div className={cls.likes}>
+            <p>
+              {item.liked.length} likes
+            </p>
+          </div>
+          <div className={cls.post_title}>
+            <p>
+              {/* <span>{username}</span> {item.title} */}
+            </p>
+          </div>
+          <div className={cls.post_comments}>
+            
+          </div>
+        </div>
+      ))
+    )) :
     <div 
       className={cls.post}
     >
@@ -54,12 +161,12 @@ const PostCard = ({item, posts, liked, allUsers, saved, setRefresh}) => {
       >
         <img 
           src={
-            allUsers?.map(users => item?.user === users.id ? users.avatar : '').join(' ')
+            allUsers?.map(users => item?.user === users.id ? users.avatar : '')
           }
           alt="photo"
         />
         <p>
-          {allUsers?.map(users => item?.user === users.id ? users.username : '').join(' ')}
+          {allUsers?.map(users => item?.user === users.id ? users.username : '')}
         </p>
       </li>
       <div className={cls.post_image}>
@@ -83,27 +190,11 @@ const PostCard = ({item, posts, liked, allUsers, saved, setRefresh}) => {
       </div>
       <div className={cls.post_buttons}>
         <div className={cls.left}>
-          {
-            liked?.length !== 0 ?
-            liked?.map(likes => (
-              likes.user === currentUser?.id ?
-              <li
-                onClick={() => dislike(likes.id)}
-              >
-                <AiFillHeart />
-              </li> :
-              <li 
-                onClick={() => like(item.id)}
-              >
-                <AiOutlineHeart /> 
-              </li>
-            )) :
-            <li 
-              onClick={() => like(item?.id)}
-            >
-              <AiOutlineHeart /> 
-            </li>
-          }
+          <li 
+            onClick={() => like(item.id)}
+          >
+            <AiOutlineHeart /> 
+          </li>
           <li>
             <Link to={`/p/${item.id}`}>
               <FiMessageCircle />
@@ -114,24 +205,13 @@ const PostCard = ({item, posts, liked, allUsers, saved, setRefresh}) => {
           </li>
         </div>
         <div className={cls.right}>
-          {
-            saved ?
-            <li
-              onClick={() => {
-                unsave('savedId')
-              }}
-            >
-              <FaBookmark />
-            </li>
-            :
-            <li
-              onClick={() => {
-                save(item.id)
-              }}
-            >
-              <FaRegBookmark />
-            </li>
-          }
+          <li
+            onClick={() => {
+              save(item.id)
+            }}
+          >
+            <FaRegBookmark />
+          </li>
         </div>
       </div>
       <div className={cls.likes}>
