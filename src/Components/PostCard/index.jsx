@@ -84,7 +84,7 @@ const PostCard = ({item, posts, liked, allUsers, saved, setRefresh}) => {
       <div className={cls.post_buttons}>
         <div className={cls.left}>
           {
-            liked.length !== 0 ?
+            liked?.length !== 0 ?
             liked?.map(likes => (
               likes.user === currentUser?.id ?
               <li
