@@ -19,6 +19,7 @@
     input{
       display: none;
     }
+
     .users{
       display: flex;
       align-items: center;
@@ -35,7 +36,6 @@
           width: 58px;
           height: 58px;
           position: absolute;
-          z-index: 1;
           left: -8%;
           top: -7%;
           background: url('https://i.pinimg.com/originals/7d/35/3a/7d353a870b735c48fcf21c023b86c28f.png') center / cover;
@@ -47,7 +47,6 @@
           object-position: center;
           position: relative;
           border-radius: 50px;
-          z-index: 1;
         }
       }
       p{
