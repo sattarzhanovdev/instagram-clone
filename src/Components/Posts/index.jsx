@@ -1,10 +1,6 @@
 import React from 'react'
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
-import { FiMessageCircle, FiSend } from 'react-icons/fi'
-import { FaBookmark, FaPage4, FaRegBookmark, } from 'react-icons/fa'
 import { API } from '../../API'
 import cls from './Posts.module.scss'
-import { Link } from 'react-router-dom'
 import PostCard from '../PostCard'
 
 const Posts = () => {
@@ -20,7 +16,7 @@ const Posts = () => {
   React.useEffect(() => {
     API.getPosts(accessToken)
       .then(res => {
-        setPosts(res.data.reverse());
+        setPosts(res.data);
       })
 
     API.getUsers()

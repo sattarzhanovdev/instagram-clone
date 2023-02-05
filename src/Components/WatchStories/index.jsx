@@ -33,9 +33,14 @@ const WatchStories = ({item, setStories, setActive, setRefresh, refresh}) => {
 
   const delete_story = (id) => {
     API.deleteStories(accessToken, id)
-    setRefresh('ref')
-    if(storyId === item.length){
+    setRefresh('deleted story!')
+    setTimeout(() => {
+      alert('История удален!')
+    }, 2000)
+    if(storyId === item.length || storyId + 1 === item.length){
       setActive(false)
+    }else{
+      setStoryId(storyId + 1)
     }
   }
 
@@ -96,7 +101,8 @@ const WatchStories = ({item, setStories, setActive, setRefresh, refresh}) => {
           <div className={cls.media}>
             <div>
               {
-                item[storyId]?.file.slice(item[storyId]?.file.length - 4) === '.png' || item[storyId]?.file.slice(item[storyId]?.file.length - 4) === '.jpg' ? 
+                item[storyId]?.file.slice(item[storyId]?.file.length - 4) === '.png' ||
+                item[storyId]?.file.slice(item[storyId]?.file.length - 4) === '.jpg' ? 
                 <img 
                   src={item[storyId]?.file}
                   alt={'image'}

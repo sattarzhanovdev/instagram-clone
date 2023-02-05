@@ -44,9 +44,6 @@ const Stories = () => {
     formData.append('file', file)
     API.postStories(access, formData)
     setRefresh('ref')
-    setTimeout(() => {
-      window.location.reload()
-    }, 5000)
   };
   
   const getStory = (id) => {

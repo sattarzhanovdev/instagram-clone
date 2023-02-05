@@ -3,14 +3,17 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { Link, useNavigate } from 'react-router-dom'
 import { API } from '../../../API'
+import Subscribers from '../../../Components/Subscribers'
+import Subscriptions from '../../../Components/Subscriptions'
 import cls from './Profile.module.scss'
 
 const Profile = () => {
   const [ posts, setPosts ] = React.useState(null)
-  const [ allPosts, setAllPosts ] = React.useState(null)
   const [ saves, setSaves ] = React.useState(null)
   const [ refresh, setRefresh ] = React.useState(null)
   const [ more_active, setMore_active ] = React.useState(false)
+  const [ subSideActive, setSubSideActive ] = React.useState(false)
+  const [ subrsSideActive, setSubrsSideActive ] = React.useState(false)
   const [ active_filter, setActive_filter ] = React.useState('posts')
 
   const user = JSON.parse(localStorage.getItem('user'))
@@ -86,8 +89,16 @@ const Profile = () => {
                 <h3>{user?.username}</h3>
               </div>
               <div className={cls.followers}>
-                <p><span>{user?.subscribers}</span> followers</p>
-                <p><span>{user?.subscriptions}</span> following</p>
+                <p
+                  onClick={() => setSubrsSideActive(true)}
+                >
+                  <span>{user?.subscribers}</span> followers
+                </p>
+                <p
+                  onClick={() => setSubSideActive(true)}
+                >
+                  <span>{user?.subscriptions}</span> following
+                </p>
               </div>
             </div>
             <div className={cls.more}>
@@ -200,6 +211,8 @@ const Profile = () => {
           }
         </div>
       </div>
+      {subSideActive ? <Subscriptions setActive={setSubSideActive}/> : null}
+      {subrsSideActive ? <Subscribers setActive={setSubrsSideActive}/> : null}
     </div>
   )
 }
