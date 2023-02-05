@@ -26,7 +26,7 @@ const UserProfile = () => {
         res.data.map(user => user.id === Number(id) ? setUser(user) : null)
         setTimeout(() => {
           res.data.map(user => user.id === Number(id) ? 
-          API.getUser(user.id)
+          API.getUsersPosts(user.id)
             .then(res => setPosts(res.data))
           : '')
         }, 1000)
@@ -116,19 +116,15 @@ const UserProfile = () => {
               posts?.length !== 0 ?
               posts?.map(item => (
                 <div className={cls.post}>
-                  {
-                    item.post_images.map(val => (
-                      <Link 
-                        to={`/p/${item.id}`}
-                        onClick={() => localStorage.setItem('userId', user?.id)}
-                      >
-                        <img 
-                          src={`https://cryxxxen.pythonanywhere.com${val.image}`}
-                          alt={item.title}
-                        /> 
-                      </Link>
-                    ))
-                  }
+                  <Link 
+                    to={`/p/${item.id}`}
+                    onClick={() => localStorage.setItem('userId', user?.id)}
+                  >
+                    <img 
+                      src={item.post_images[0]?.image ? item.post_images[0]?.image : 'https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg'}
+                      alt={item.title}
+                    /> 
+                  </Link>
                 </div>
               )) :
               null
