@@ -23,16 +23,16 @@ const AddPost = ({active, setActive}) => {
   React.useEffect(() => {
     if(title.length !== 0 && file.length !== 0){
       API.post(accessToken, {title: title})
-      .then(res => {
-        const formData = new FormData()
-        formData.append('post', res.data.id)
-        formData.append('image', file)
-        setTimeout(() => {
-          API.postImages(accessToken, formData)
-          setActive(false)
-          localStorage.setItem('userId', user?.id)
-        }, 1000)
-      })
+        .then(res => {
+          const formData = new FormData()
+          formData.append('post', res.data.id)
+          formData.append('image', file)
+          setTimeout(() => {
+            API.postImages(accessToken, formData)
+            setActive(false)
+            localStorage.setItem('userId', user?.id)
+          }, 1000)
+        })
     }
   }, [file])
 
