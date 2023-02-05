@@ -45,13 +45,23 @@ const Profile = () => {
 
   React.useEffect(() => {
     getUser()
-
+    
+    let savedPosts = []
     API.getSaves(accessToken, user?.id)
-      .then(res => setSaves(res.data))
-
-    API.getPosts(accessToken)
-      .then(res => setAllPosts(res.data))
+      .then(saves => {
+        API.getPosts(accessToken)
+          .then(res => {
+            res.data.map(item => {
+              return saves.data?.map(save => {
+                return save.post === item.id ? savedPosts.push(item) : null
+              })
+            })
+            setSaves(savedPosts)
+          })
+      })
   }, [refresh])
+
+
 
   return (
     <div className={cls.profile_container}>
@@ -157,7 +167,7 @@ const Profile = () => {
                       onClick={() => localStorage.setItem('userId', user?.id)}
                     >
                       <img 
-                        src={item.post_images[0]?.image ? `https://cryxxxen.pythonanywhere.com${item.post_images[0]?.image}` : 'https://i0.wp.com/alternative.me/images/avatars/default.png'}
+                        src={item.post_images[0]?.image ? `https://cryxxxen.pythonanywhere.com${item.post_images[0]?.image}` : 'https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg'}
                         alt={item.title}
                       /> 
                     </Link >
@@ -172,25 +182,19 @@ const Profile = () => {
                   NO SAVED POSTS
                 </h3>
                 :
-                allPosts?.map(post => (
-                  post.post_images.map(images => (
-                    saves?.map(save => (
-                      save.post === post.id ? 
-                      <div className={cls.post}> 
-                        <Link 
-                          to={`/p/${post.id}`}
-                          onClick={() => localStorage.setItem('userId', user?.id)}
-                        >
-                          <img 
-                            src={images.post === save.post ? images.image : 'https://i0.wp.com/alternative.me/images/avatars/default.png'}
-                            alt={post.title} 
-                          />  
-                        </Link>
-                      </div> : 
-                      null
-                    )
-                  ))
-                )))
+                saves?.map(item => (
+                  <div className={cls.post}> 
+                    <Link 
+                      to={`/p/${item.id}`}
+                      onClick={() => localStorage.setItem('userId', user?.id)}
+                    >
+                      <img 
+                        src={item.post_images[0]?.image ? item.post_images[0]?.image : 'https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg'}
+                        alt={item?.title}
+                      /> 
+                    </Link >
+                  </div>
+                ))
               }
             </div>
           }

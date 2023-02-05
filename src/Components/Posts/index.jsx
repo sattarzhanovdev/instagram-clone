@@ -20,7 +20,7 @@ const Posts = () => {
   React.useEffect(() => {
     API.getPosts(accessToken)
       .then(res => {
-        setPosts(res.data);
+        setPosts(res.data.reverse());
       })
 
     API.getUsers()
