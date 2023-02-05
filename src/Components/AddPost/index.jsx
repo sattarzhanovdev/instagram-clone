@@ -7,35 +7,24 @@ import { API } from '../../API'
 const AddPost = ({active, setActive}) => {
   const [activeId, setActiveId] = React.useState(1)
   const [title, setTitle] = React.useState('')
-  const [file, setFile] = React.useState(null)
+  const [postInfo, setPostInfo] = React.useState(null)
   
   const accessToken = localStorage.getItem('accessToken')
   const user = JSON.parse(localStorage.getItem('user'))
 
-  // const toNext = () => {
-  //   if(file !== null){
-  //     setActiveId(activeId + 1)
-  //   }else{
-  //     setActiveId(1)
-  //   }
-  // }
+  const post = () => {
+    API.post(accessToken, {title: title})
+      .then(res => setPostInfo(res.data))
+  }
 
-  React.useEffect(() => {
-    if(title.length !== 0 && file.length !== 0){
-      API.post(accessToken, {title: title})
-        .then(res => {
-          const formData = new FormData()
-          formData.append('post', res.data.id)
-          formData.append('image', file)
-          setTimeout(() => {
-            API.postImages(accessToken, formData)
-            setActive(false)
-            localStorage.setItem('userId', user?.id)
-          }, 1000)
-        })
-    }
-  }, [file])
-
+  const post_file = (file) => {
+    const formData = new FormData()
+    formData.append('post', postInfo?.id)
+    formData.append('image', file)
+    API.postImages(accessToken, formData)
+    setActive(false)
+    localStorage.setItem('userId', user?.id)
+  }
 
   return (
     <div className={cls.addPost_container}>
@@ -65,6 +54,7 @@ const AddPost = ({active, setActive}) => {
                 onClick={e => {
                   e.preventDefault()
                   setActiveId(2)
+                  post()
                 }}
                 className={cls.next}
               >
@@ -81,7 +71,9 @@ const AddPost = ({active, setActive}) => {
               <input 
                 type="file" 
                 id={"select"}
-                onChange={e => setFile(e.target.files[0])}
+                onChange={e => {
+                  post_file(e.target.files[0])
+                }}
               />
               <button>
                 <label htmlFor={"select"}>

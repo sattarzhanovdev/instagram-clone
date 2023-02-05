@@ -16,9 +16,6 @@ const PostCard = ({item, posts, liked, allUser, saved, setRefresh, refresh}) => 
   const accessToken = localStorage.getItem('accessToken')
   const currentUser = JSON.parse(localStorage.getItem('user'))
 
-  const savedPosts = []
-
-
   const like = (id) => {
     API.like(accessToken, {post: id})
     setRefresh('REFRESH YUHUUc!')
@@ -46,7 +43,6 @@ const PostCard = ({item, posts, liked, allUser, saved, setRefresh, refresh}) => 
     const likedId = liked?.find(likes => likes.post === item.id ? setLikedId(likes.id) : '') 
 
     const avatar = allUser?.map(user => user.id === item.user ? setAvatar(user.avatar) : '')
-
   }, [refresh])
 
   return (
@@ -70,9 +66,7 @@ const PostCard = ({item, posts, liked, allUser, saved, setRefresh, refresh}) => 
           item.post_images.length !== 0 ?
           <img 
             src={
-              item.post_images[0].image ?
-              item.post_images[0].image :
-              'https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-11.jpg'
+              item.post_images[0].image
             }
             alt=''
             />  : 

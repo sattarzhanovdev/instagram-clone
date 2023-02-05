@@ -30,7 +30,7 @@ const SearchBar = ({searchBarActive, setSearchBarActive}) => {
           searchedBase ?
           searchedBase.map(item => (
             <Link 
-              to={`/profile/${item.username}`}
+              to={`/profile/${item.id}`}
               onClick={() => setSearchBarActive(false)}
             >
               <div>

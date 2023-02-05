@@ -154,13 +154,15 @@
       }
       .posts{
         display: flex;
+        flex-wrap: wrap;
         margin-top: 30px;
+        gap: 15px;
         .post{
           margin-right: 5px;
           img,
           video{
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             object-fit: cover;
             object-position: center;
   

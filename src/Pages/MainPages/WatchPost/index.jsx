@@ -21,12 +21,12 @@ const WatchPost = () => {
   const accessToken = localStorage.getItem('accessToken')
 
   React.useEffect(() => {
-    API.getUsersPosts(userId)
+    API.getPosts(accessToken)
       .then(res => {
         res.data.map(val => val.id === Number(id) ? setItem(val) : null )
       })
 
-    API.getSaves(accessToken, userId)
+    API.getSaves(accessToken, user.id)
       .then(res => {
         setSaves(res.data)
       })
@@ -44,7 +44,7 @@ const WatchPost = () => {
     setInterval(() => {
       setRefresh('ОБНОВЛЯЙСЯ')
     }, 1000)
-    console.log(comments);
+
   }, [refresh])
 
   const like = () => {
@@ -62,8 +62,8 @@ const WatchPost = () => {
     setRefresh('saved!')
   }
 
-  const unsave = () => {
-    API.unsave(accessToken, id)
+  const unsave = (savedId) => {
+    API.unsave(accessToken, savedId)
     setRefresh('unsaved!')
   }
 
@@ -89,10 +89,10 @@ const WatchPost = () => {
   const Navigate = useNavigate()
 
   const likedBase = item?.liked.find(val => val.user === user?.id ? true : false)
-  const savedBase = saves?.find(val => val.user === user?.id ? true : false)
-  const valSaveId = saves?.find(val => val.user === user?.id ? val.id : '')
   const valId = item?.liked.find(val => val.user === user?.id ? val.id : '')
-  
+  const savedBase = saves?.find(val => val.post === Number(id) ? true : false)
+  const savedId = saves?.find(val => val.post === Number(id) ? val.id : '')
+
   return (
     <div className={cls.post_container}>
       <div className={cls.post}>
@@ -154,7 +154,7 @@ const WatchPost = () => {
             item?.post_images.map((images, index) => (
               <img 
                 key={index}
-                src={`https://cryxxxen.pythonanywhere.com${images.image}`}
+                src={images.image}
                 alt=""
               />
             )) : 
@@ -197,7 +197,7 @@ const WatchPost = () => {
               savedBase ?
               <li
                 onClick={() => {
-                  unsave(valSaveId) 
+                  unsave(savedId) 
                 }}
               >
                 <FaBookmark />

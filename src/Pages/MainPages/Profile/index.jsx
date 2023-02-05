@@ -7,6 +7,7 @@ import cls from './Profile.module.scss'
 
 const Profile = () => {
   const [ posts, setPosts ] = React.useState(null)
+  const [ allPosts, setAllPosts ] = React.useState(null)
   const [ saves, setSaves ] = React.useState(null)
   const [ refresh, setRefresh ] = React.useState(null)
   const [ more_active, setMore_active ] = React.useState(false)
@@ -47,6 +48,9 @@ const Profile = () => {
 
     API.getSaves(accessToken, user?.id)
       .then(res => setSaves(res.data))
+
+    API.getPosts(accessToken)
+      .then(res => setAllPosts(res.data))
   }, [refresh])
 
   return (
@@ -148,19 +152,15 @@ const Profile = () => {
                 :
                 posts?.map(item => (
                   <div className={cls.post}> 
-                    {
-                      item.post_images.map(val => (
-                        <Link 
-                          to={`/p/${item.id}`}
-                          onClick={() => localStorage.setItem('userId', user?.id)}
-                        >
-                          <img 
-                            src={`https://cryxxxen.pythonanywhere.com${val.image}`}
-                            alt={item.title}
-                          /> 
-                        </Link >
-                      ))
-                    }
+                    <Link 
+                      to={`/p/${item.id}`}
+                      onClick={() => localStorage.setItem('userId', user?.id)}
+                    >
+                      <img 
+                        src={item.post_images[0]?.image ? `https://cryxxxen.pythonanywhere.com${item.post_images[0]?.image}` : 'https://i0.wp.com/alternative.me/images/avatars/default.png'}
+                        alt={item.title}
+                      /> 
+                    </Link >
                   </div>
                 )) 
               }
@@ -172,52 +172,27 @@ const Profile = () => {
                   NO SAVED POSTS
                 </h3>
                 :
-                posts?.map(post => (
-                  saves?.map(save => (
-                    <div className={cls.post}> 
-                      {
-                        post.id === save.post ?
-                        (
-                          post.post_images.length !== 0 ? 
-                          post.post_images?.map(val => (
-                            <Link 
-                              to={`/p/${post.id}`}
-                              onClick={() => localStorage.setItem('userId', user?.id)}
-                            >
-                              <img 
-                                src={
-                                  val.image ?
-                                  `https://cryxxxen.pythonanywhere.com${val.image}`
-                                  :
-                                  'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg' 
-                                }
-                                alt={post.title} 
-                              
-                              /> 
-                            </Link>
-                          ))
-                          :
-                          <Link 
-                            to={`/p/${post.id}`}
-                            onClick={() => localStorage.setItem('userId', user?.id)}
-                          >
-                            <img 
-                              src={
-                                'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg' 
-                              }
-                              alt={post.title} 
-                            
-                            /> 
-                          </Link>
-                        )
-                        :
-                        null
-                      }
-                    </div>
+                allPosts?.map(post => (
+                  post.post_images.map(images => (
+                    saves?.map(save => (
+                      save.post === post.id ? 
+                      <div className={cls.post}> 
+                        <Link 
+                          to={`/p/${post.id}`}
+                          onClick={() => localStorage.setItem('userId', user?.id)}
+                        >
+                          <img 
+                            src={images.post === save.post ? images.image : 'https://i0.wp.com/alternative.me/images/avatars/default.png'}
+                            alt={post.title} 
+                          />  
+                        </Link>
+                      </div> : 
+                      null
+                    )
                   ))
-                )) 
+                )))
               }
-          </div>
+            </div>
           }
         </div>
       </div>

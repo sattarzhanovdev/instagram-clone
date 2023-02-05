@@ -34,6 +34,9 @@ const WatchStories = ({item, setStories, setActive, setRefresh, refresh}) => {
   const delete_story = (id) => {
     API.deleteStories(accessToken, id)
     setRefresh('ref')
+    if(storyId === item.length){
+      setActive(false)
+    }
   }
 
   const nextStory = () => {
@@ -52,8 +55,6 @@ const WatchStories = ({item, setStories, setActive, setRefresh, refresh}) => {
       setStoryId(storyId - 1)
     }
   }
-
-  console.log(item)
 
   return (
     <div className={cls.watch}>
@@ -76,7 +77,7 @@ const WatchStories = ({item, setStories, setActive, setRefresh, refresh}) => {
           <FiArrowRightCircle/>
         </button>
       </div>
-      <div>
+      <div className={cls.watchStory}>
         <div className={cls.user_info}>
           <div className={cls.left}>
             <img 
@@ -92,31 +93,29 @@ const WatchStories = ({item, setStories, setActive, setRefresh, refresh}) => {
               <BiTrash />
             </li>
           </div>
+          <div className={cls.media}>
+            <div>
+              {
+                item[storyId]?.file.slice(item[storyId]?.file.length - 4) === '.png' || item[storyId]?.file.slice(item[storyId]?.file.length - 4) === '.jpg' ? 
+                <img 
+                  src={item[storyId]?.file}
+                  alt={'image'}
+                  className={cls.post_photo}
+                /> :
+                item[storyId]?.file.slice(item[storyId]?.file.length - 5) === '.jpeg' ? 
+                <img 
+                  src={item[storyId]?.file}
+                  alt={'image'}
+                  className={cls.post_photo}
+                /> :
+                <video autoPlay loop>
+                  <source src={item[storyId]?.file}/>
+                </video> 
+              }
+            </div>
+          </div>
         </div>
-        {
-          item[storyId]?.file.slice(item[storyId]?.file.length - 4) === '.png' && 'jpg' ? 
-          <img 
-            src={item[storyId]?.file}
-            alt={'image'}
-            className={cls.post_photo}
-          /> :
-          item[storyId]?.file.slice(item[storyId]?.file.length - 5) === '.jpeg' ?
-          <img 
-            src={item[storyId]?.file}
-            alt={'image'}
-            className={cls.post_photo}
-          /> :
-          item[storyId]?.file.slice(item[storyId]?.file.length - 4).toLowerCase() === '.mp4'  ?
-          <video autoPlay >
-            <source src={item[storyId]?.file}/>
-          </video> :
-          <img 
-            src={item[storyId]?.file}
-            alt={'image'}
-            className={cls.post_photo}
-          /> 
-        }
-      </div>
+        </div>
     </div>
   )
 }

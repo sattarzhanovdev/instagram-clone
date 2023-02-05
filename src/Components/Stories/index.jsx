@@ -42,12 +42,11 @@ const Stories = () => {
   const postStories = (file) => {
     const formData = new FormData()
     formData.append('file', file)
-    if(file){
-      API.postStories(access, formData)
-      setRefresh('posted!')
-    }else{
-      alert('Выберите фото или видео!')
-    }
+    API.postStories(access, formData)
+    setRefresh('ref')
+    setTimeout(() => {
+      window.location.reload()
+    }, 5000)
   };
   
   const getStory = (id) => {
@@ -72,7 +71,7 @@ const Stories = () => {
           <div
             className={cls.users}
           >
-            <div className={cls.avatar}>
+            <div className={cls.avatar1}>
               <img src={'https://i0.wp.com/alternative.me/images/avatars/default.png'} alt="" />
             </div>
             <p>Add story</p>
@@ -100,7 +99,7 @@ const Stories = () => {
         {
           active ?
           <WatchStories
-            item={stories}
+            item={stories.reverse()}
             setStories={setStories}
             setActive={setActive}
             setRefresh={setRefresh}

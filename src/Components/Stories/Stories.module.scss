@@ -27,6 +27,9 @@
       margin: 0 10px;
       cursor: pointer;
       z-index: 0;
+      .avatar1{
+        position: relative;
+      }
       .avatar{
         position: relative;
         &::before {
@@ -40,15 +43,16 @@
           top: -7%;
           background: url('https://i.pinimg.com/originals/7d/35/3a/7d353a870b735c48fcf21c023b86c28f.png') center / cover;
         }
-        img{
-          width: 50px;
-          height: 50px;
-          object-fit: cover;
-          object-position: center;
-          position: relative;
-          border-radius: 50px;
-        }
       }
+      img{
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        object-position: center;
+        position: relative;
+        border-radius: 50px;
+      }
+     
       p{
         margin: 0;
         margin-top: 5px;
