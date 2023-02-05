@@ -4,10 +4,10 @@ import { API } from '../../../API'
 import cls from './UserProfile.module.scss'
 
 const UserProfile = () => {
-  const { username } = useParams()
+  const { id } = useParams()
   const [ user, setUser ] = React.useState(null)
   const [ refresh, setRefresh ] = React.useState(null)
-  const [ posts, setPost ] = React.useState(null)
+  const [ posts, setPosts ] = React.useState(null)
   const [ subscriptionsActive, setSubscriptionsActive ] = React.useState(null)
   const [ subscriptions, setSubscriptions ] = React.useState(null)
 
@@ -17,18 +17,18 @@ const UserProfile = () => {
   const Navigate = useNavigate()
 
   React.useEffect(() => {
-    if(username === currentUser.username) {
+    if(id === currentUser.id) {
       Navigate('/profile')
     }
 
-    API.getUser(username)
+    API.getUsers()
       .then(res => {
-        setUser(res.data[0])
+        res.data.map(user => user.id === Number(id) ? setUser(user) : null)
         setTimeout(() => {
-          API.getUsersPosts(res.data[0].id)
-          .then(res => {
-            setPost(res.data)
-          })
+          res.data.map(user => user.id === Number(id) ? 
+          API.getUsersPosts(user.id)
+            .then(res => setPosts(res.data))
+          : '')
         }, 1000)
 
       API.getUsersSubscriptions(currentUser?.id)
@@ -43,7 +43,7 @@ const UserProfile = () => {
       setTimeout(() => {
         setRefresh(`refresh!`)
       }, 1000)
-  }, [refresh, username])
+  }, [refresh, id])
 
   const unfollow = (id) => {
     API.unfollow(accessToken, id)

@@ -25,6 +25,9 @@ const Stories = () => {
         setUsers(res.data)
       })
       
+    setTimeout(() => {
+      setRefresh('hello')
+    }, 1000)
   }, [refresh])
 
   users?.filter(item => {
@@ -41,7 +44,7 @@ const Stories = () => {
     formData.append('file', file)
     if(file){
       API.postStories(access, formData)
-      setRefresh('Hello')
+      setRefresh('posted!')
     }else{
       alert('Выберите фото или видео!')
     }
@@ -50,19 +53,31 @@ const Stories = () => {
   const getStory = (id) => {
     storiesBase?.filter(val => {
       if(val.user === id){
-        return stories.unshift(val)
+        stories.unshift(val)
+        localStorage.setItem('userId', val.user)
       } 
     })
     setActive(true)
   }
 
-  console.log(storiesBase);
-
-
-
   return (
     <div className={cls.stories_container}>
       <div className={cls.stories}>
+        <input 
+          type="file" 
+          onChange={e => postStories(e.target.files[0])}
+          id={'postStory'}
+        />
+        <label htmlFor="postStory">
+          <div
+            className={cls.users}
+          >
+            <div className={cls.avatar}>
+              <img src={'https://i0.wp.com/alternative.me/images/avatars/default.png'} alt="" />
+            </div>
+            <p>Add story</p>
+          </div>
+        </label>
         {
           users ? 
           newBase.map((item, index) => (
@@ -88,11 +103,12 @@ const Stories = () => {
             item={stories}
             setStories={setStories}
             setActive={setActive}
+            setRefresh={setRefresh}
+            refresh={refresh}
           />
           : 
           null
         }
-        {/* <input type="file" onChange={e => postStories(e.target.files[0])} /> */}
       </div>
     </div>
   )

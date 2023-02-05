@@ -20,6 +20,11 @@ export const API = {
       'Authorization': `Bearer ${accessToken}`
     }
   }),
+  deleteStories: (accessToken, id) => axios.delete(`/stories/${id}/`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }),
   getPosts: (accessToken) => axios.get(`/posts/`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
@@ -36,7 +41,7 @@ export const API = {
       'Authorization': `Bearer ${accessToken}`
     }
   }),
-  deleteStories: (accessToken, id) => axios.delete(`/images/${id}/`, {
+  deleteStories: (accessToken, id) => axios.delete(`/stories/${id}/`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }

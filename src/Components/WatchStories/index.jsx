@@ -3,16 +3,25 @@ import cls from './WatchStories.module.scss'
 import {FiArrowLeftCircle, FiArrowRightCircle} from 'react-icons/fi'
 import { AiOutlineClose } from 'react-icons/ai'
 import { API } from '../../API'
+import { BiTrash } from 'react-icons/bi'
 
-const WatchStories = ({item, setStories, setActive}) => {
+const WatchStories = ({item, setStories, setActive, setRefresh, refresh}) => {
   const [ storyId, setStoryId ] = React.useState(0)
   const [ users, setUsers ] = React.useState(null)
 
   React.useEffect(() => {
     API.getUsers()
       .then(res => setUsers(res.data))
-  }, [])
 
+    if(item.length === 0){
+      setActive(false)
+    }
+  }, [refresh])
+
+
+  const accessToken = localStorage.getItem('accessToken')
+  const userId = localStorage.getItem('userId')
+  const user = JSON.parse(localStorage.getItem('user'))
 
   const user_info = []
 
@@ -22,7 +31,10 @@ const WatchStories = ({item, setStories, setActive}) => {
     })
   })
 
-  console.log(user_info);
+  const delete_story = (id) => {
+    API.deleteStories(accessToken, id)
+    setRefresh('ref')
+  }
 
   const nextStory = () => {
     if(storyId + 1 === item.length){
@@ -40,6 +52,9 @@ const WatchStories = ({item, setStories, setActive}) => {
       setStoryId(storyId - 1)
     }
   }
+
+  console.log(item)
+
   return (
     <div className={cls.watch}>
       <div className={cls.close}>
@@ -63,26 +78,43 @@ const WatchStories = ({item, setStories, setActive}) => {
       </div>
       <div>
         <div className={cls.user_info}>
-          <img 
-            src={user_info[0]?.avatar !== null ? user_info[0]?.avatar : 'https://i0.wp.com/alternative.me/images/avatars/default.png'}
-            alt="user"
-          />
-          <p>{user_info[0]?.username}</p>
+          <div className={cls.left}>
+            <img 
+              src={user_info[0]?.avatar !== null ? user_info[0]?.avatar : 'https://i0.wp.com/alternative.me/images/avatars/default.png'}
+              alt="user"
+            />
+            <p>{user_info[0]?.username}</p>
+          </div>
+          <div className={Number(userId) === user.id ? cls.right : cls.none}>
+            <li
+              onClick={() => delete_story(item[storyId]?.id)}
+            >
+              <BiTrash />
+            </li>
+          </div>
         </div>
         {
           item[storyId]?.file.slice(item[storyId]?.file.length - 4) === '.png' && 'jpg' ? 
           <img 
             src={item[storyId]?.file}
             alt={'image'}
+            className={cls.post_photo}
           /> :
           item[storyId]?.file.slice(item[storyId]?.file.length - 5) === '.jpeg' ?
           <img 
             src={item[storyId]?.file}
             alt={'image'}
+            className={cls.post_photo}
           /> :
-          <video autoPlay controls={false} >
+          item[storyId]?.file.slice(item[storyId]?.file.length - 4).toLowerCase() === '.mp4'  ?
+          <video autoPlay >
             <source src={item[storyId]?.file}/>
-          </video>
+          </video> :
+          <img 
+            src={item[storyId]?.file}
+            alt={'image'}
+            className={cls.post_photo}
+          /> 
         }
       </div>
     </div>

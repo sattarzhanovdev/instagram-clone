@@ -48,7 +48,7 @@ function App() {
           element={<MainPages.Pages.WatchPost />}
         />
         <Route
-          path='/profile/:username'
+          path='/profile/:id'
           element={<MainPages.Pages.UserProfile />}
         />
         <Route

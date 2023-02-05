@@ -90,6 +90,7 @@
           justify-content: center;
           align-items: center;
           flex-direction: column;
+          z-index: 1;
           .close{
             position: absolute;
             top: 10px;

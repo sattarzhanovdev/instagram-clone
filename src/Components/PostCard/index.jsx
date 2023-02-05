@@ -55,7 +55,7 @@ const PostCard = ({item, posts, liked, allUser, saved, setRefresh, refresh}) => 
     >
       <Link
         className={cls.up}
-        to={`/profile/${allUser?.map(user => user.id === item.user ? user.username : '').join('')}`}
+        to={`/profile/${allUser?.map(user => user.id === item.user ? user.id : '').join('')}`}
       >
         <img 
           src={avatar ? avatar : 'https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-11.jpg'}
