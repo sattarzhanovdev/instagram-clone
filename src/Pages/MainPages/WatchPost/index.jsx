@@ -63,7 +63,7 @@ const WatchPost = () => {
   }
 
   const unsave = (savedId) => {
-    API.unsave(accessToken, savedId)
+    API.unsave(accessToken, savedId?.id)
     setRefresh('unsaved!')
   }
 
@@ -91,7 +91,7 @@ const WatchPost = () => {
   const likedBase = item?.liked.find(val => val.user === user?.id ? true : false)
   const valId = item?.liked.find(val => val.user === user?.id ? val.id : '')
   const savedBase = saves?.find(val => val.post === Number(id) ? true : false)
-  const savedId = saves?.find(val => val.post === Number(id) ? val.id : '')
+  const getSavedId = saves?.find(val => val.post === Number(id))
 
   return (
     <div className={cls.post_container}>
@@ -197,7 +197,7 @@ const WatchPost = () => {
               savedBase ?
               <li
                 onClick={() => {
-                  unsave(savedId) 
+                  unsave(getSavedId) 
                 }}
               >
                 <FaBookmark />

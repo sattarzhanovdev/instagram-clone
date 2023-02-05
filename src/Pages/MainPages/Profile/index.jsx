@@ -39,7 +39,7 @@ const Profile = () => {
   const getUser = async () => {
     await API.getUsersPosts(user?.id)
       .then(res => {
-        setPosts(res.data)
+        setPosts(res.data.reverse())
     })
   }
 
@@ -56,7 +56,7 @@ const Profile = () => {
                 return save.post === item.id ? savedPosts.push(item) : null
               })
             })
-            setSaves(savedPosts)
+            setSaves(savedPosts.reverse())
           })
       })
   }, [refresh])

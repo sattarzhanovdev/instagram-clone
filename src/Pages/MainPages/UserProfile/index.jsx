@@ -27,7 +27,7 @@ const UserProfile = () => {
         setTimeout(() => {
           res.data.map(user => user.id === Number(id) ? 
           API.getUsersPosts(user.id)
-            .then(res => setPosts(res.data))
+            .then(res => setPosts(res.data.reverse()))
           : '')
         }, 1000)
 
