@@ -117,7 +117,7 @@ const WatchPost = () => {
             </p>
           </div>
           {
-            Number(userId) === user?.id ? 
+            item?.user === user?.id ? 
             <div 
               className={cls.right}
               onClick={() => setPopUpActive(!popUpActive)}
@@ -159,7 +159,7 @@ const WatchPost = () => {
               />
             )) : 
             <img 
-              src={'https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-11.jpg'}
+              src={'https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg'}
               alt=""
             />
           }
